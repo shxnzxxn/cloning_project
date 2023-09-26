@@ -9,12 +9,12 @@ import java.awt.*;
 public class StoreController {
     private final StoreService storeService;
 
-    @GetMapping("store/search/{categoryId}")
+    @GetMapping("store/{categoryId}")
     public List<Store> searchStoreBasedCategory(@PathVariable("category") String categoryName) {
         return storeService.searchStoreBasedCategory(categoryName);
     }
 
-    @GetMapping("store/info/{storeId}")
+    @GetMapping("store/{storeId}")
     public Store findStore(@PathVariable("storeId") Long storeId) {
         return storeService.findStore(storeId);
     }
@@ -34,12 +34,12 @@ public class StoreController {
         return storeService.register(store);
     }
 
-    @DeleteMapping("store/store/{storeId}")
+    @DeleteMapping("store/{storeId}")
     public String removeStore(@PathVariable("storeId") Long storeId) {
         return storeService.removeStore(storeId);
     }
 
-    @PostMapping("store/menu")
+    @PostMapping("{storeId}/menu")
     public String addMenu(MenuForm menuForm) {
         Menu menu = new Menu();
         Long storeId = menuForm.getStoreId();
@@ -49,7 +49,7 @@ public class StoreController {
         return storeService.addMenu(storeId, menu);
     }
 
-    @DeleteMapping("store/menu/{menuId}")
+    @DeleteMapping("menu/{menuId}")
     public String removeMenu(@PathVariable("menuId") Long menuId) {
         return storeService.removeMenu(menuId);
     }
