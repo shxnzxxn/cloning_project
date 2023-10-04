@@ -20,6 +20,6 @@ public class Store {
     @Embedded
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<Menu> menuList;
 }

@@ -1,30 +1,5 @@
 package cloning_project.demo.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import java.util.List;
-
-@Repository
-@RequiredArgsConstructor
-public class StoreRepository {
-    private final EntityManager em;
-
-    public void save(Store store){em.persist(store);}
-
-    public Store findOne(Long id){
-        return em.find(Store.class, id);
-    }
-
-    public List<Store> findAll(){
-        return em.createQuery("select s from Store s", Store.class)
-                .getResultList();
-    }
-
-    public List<Store> findByName(String name){
-        return em.createQuery("select s from Store s where s.name = :name", Store.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
+public interface StoreRepository extends JpaRepository<Store, Long> {
 }
