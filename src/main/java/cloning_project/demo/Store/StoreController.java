@@ -1,8 +1,13 @@
-package cloning_project.demo.Controller;
+package cloning_project.demo.Store;
 
+import cloning_project.demo.Menu.Menu;
+import cloning_project.demo.Other.Address;
+import cloning_project.demo.Other.MenuForm;
+import cloning_project.demo.Other.StoreForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.awt.*;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,19 +29,18 @@ public class StoreController {
         Store store = new Store();
         store.setName(storeForm.getName());
 
-        Address address = new Address();
-        address.setCity(storeForm.getCity());
-        address.setStreet(storeForm.getStreet());
-        address.setZipCode(storeForm.getZipCode());
-
+        Address address = new Address(storeForm.getCity(), storeForm.getStreet(), storeForm.getZipcode());
         store.setAddress(address);
+
+        /*store.setMenuList();*/
 
         return storeService.register(store);
     }
 
     @DeleteMapping("store/{storeId}")
     public String removeStore(@PathVariable("storeId") Long storeId) {
-        return storeService.removeStore(storeId);
+        storeService.removeStore(storeId);
+        return "OK";
     }
 
     @PostMapping("{storeId}/menu")
@@ -45,12 +49,10 @@ public class StoreController {
         Long storeId = menuForm.getStoreId();
 
         // menu에 post로 받은 menuform 정보 세팅
+        menu.setName(menuForm.getName());
+        menu.setPrice(menuForm.getPrice());
+        menu.setDescription(menuForm.getDescription());
 
         return storeService.addMenu(storeId, menu);
-    }
-
-    @DeleteMapping("menu/{menuId}")
-    public String removeMenu(@PathVariable("menuId") Long menuId) {
-        return storeService.removeMenu(menuId);
     }
 }
