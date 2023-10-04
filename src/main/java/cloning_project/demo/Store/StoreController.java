@@ -6,7 +6,6 @@ import cloning_project.demo.Other.MenuForm;
 import cloning_project.demo.Other.StoreForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -16,7 +15,6 @@ public class StoreController {
 
     @GetMapping("store/{categoryId}")
     public List<Store> searchStoreBasedCategory(@PathVariable("category") String categoryName) {
-
         return storeService.searchStoreBasedCategory(categoryName);
     }
 
@@ -38,10 +36,11 @@ public class StoreController {
         return storeService.register(store);
     }
 
-//    @DeleteMapping("store/{storeId}")
-//    public String removeStore(@PathVariable("storeId") Long storeId) {
-//        return storeService.removeStore(storeId);
-//    }
+    @DeleteMapping("store/{storeId}")
+    public String removeStore(@PathVariable("storeId") Long storeId) {
+        storeService.removeStore(storeId);
+        return "OK";
+    }
 
     @PostMapping("{storeId}/menu")
     public String addMenu(MenuForm menuForm) {
@@ -55,9 +54,4 @@ public class StoreController {
 
         return storeService.addMenu(storeId, menu);
     }
-
-//    @DeleteMapping("menu/{menuId}")
-//    public String removeMenu(@PathVariable("menuId") Long menuId) {
-//        return storeService.removeMenu(menuId);
-//    }
 }

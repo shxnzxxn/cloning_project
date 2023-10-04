@@ -27,18 +27,18 @@ public class StoreService {
 
     @Transactional
     public String addMenu(Long storeId, Menu menu) {
-        Store store = storeRepository.findOne(storeId);
+        Store store = storeRepository.getReferenceById(storeId);
         store.getMenuList().add(menu);
         return "OK";
     }
 
-//    public String removeMenu(Long menuId) {
-//    }
 
-//    public String removeStore(Long storeId) {
-//    }
+    @Transactional
+    public void removeStore(Long storeId) {
+        storeRepository.deleteById(storeId);
+    }
 
     public Store findStore(Long storeId) {
-        return storeRepository.findOne(storeId);
+        return storeRepository.getReferenceById(storeId);
     }
 }
