@@ -1,2 +1,4 @@
-package cloning_project.demo.Menu;public class MenuController {
+
+package cloning_project.demo.Menu;
+public class MenuController {
 }
